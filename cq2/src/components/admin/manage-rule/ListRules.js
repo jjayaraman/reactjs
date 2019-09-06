@@ -4,10 +4,9 @@ export default class ListRules extends Component {
     render() {
         return (
             <div>
-                List Rules
-
-              table.tr.td 
+                <h3>List Rules</h3>
             </div>
+
         )
     }
 }

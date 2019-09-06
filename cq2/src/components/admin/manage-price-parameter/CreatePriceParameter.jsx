@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 
-export default class ListRules extends Component {
+export default class CreatePriceParameter extends Component {
     render() {
         return (
             <div>
-                List Rules
-
-              table.tr.td 
+                <h3>Create Price Parameters</h3>
             </div>
         )
     }

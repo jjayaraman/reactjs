@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 
-export default class ListRules extends Component {
+export default class EditRule extends Component {
     render() {
         return (
             <div>
-                List Rules
-
-              table.tr.td 
+                <h3>Edit Rule </h3>
             </div>
         )
     }
