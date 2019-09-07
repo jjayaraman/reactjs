@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
 
+import logo from './assets/images/lgc.jpg';
+import { Switch, Route } from 'react-router-dom';
 import ListRules from './components/admin/manage-rule/ListRules';
 import CreateRule from './components/admin/manage-rule/CreateRule';
 import EditRule from './components/admin/manage-rule/EditRule';
-
 import { Container, Row, Col } from 'react-bootstrap';
 import Menu from './components/menu/Menu';
 
@@ -16,24 +16,25 @@ function App() {
       {/* <header className="App-header">
       </header> */}
 
+      <div id="header-logo"><img src={logo} alt="Logo" height="50px" ></img></div>
       <div id="header">Custom Quotation</div>
       <div id="leftMenu">
         <Menu></Menu>
       </div>
       <div id="main">
 
-              <Container >
-                <Switch>
-                  <Route exact path="/" component={ListRules} />
-                  <Route path="/create" component={CreateRule} />
-                  <Route path="/edit" component={EditRule} />
-                </Switch>
-              </Container>
+        <Container >
+          <Switch>
+            <Route exact path="/" component={ListRules} />
+            <Route path="/create" component={CreateRule} />
+            <Route path="/edit" component={EditRule} />
+          </Switch>
+        </Container>
       </div>
       <div id="footer">
-        LGC. All rights reserved. 2019 
+        LGC. All rights reserved. 2019
         </div>
-      </div>
+    </div>
   );
 }
 
