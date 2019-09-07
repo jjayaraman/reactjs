@@ -7,6 +7,7 @@ import CreateRule from './components/admin/manage-rule/CreateRule';
 import EditRule from './components/admin/manage-rule/EditRule';
 
 import { Container, Row, Col } from 'react-bootstrap';
+import Menu from './components/menu/Menu';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
 
       <div id="header">Custom Quotation</div>
       <div id="leftMenu">
-        Home
+        <Menu></Menu>
       </div>
       <div id="main">
 
