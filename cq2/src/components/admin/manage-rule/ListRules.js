@@ -4,7 +4,7 @@ export default class ListRules extends Component {
     render() {
         return (
             <div>
-                <h3>List Rules</h3>
+                List Rules
             </div>
 
         )

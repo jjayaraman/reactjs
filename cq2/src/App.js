@@ -15,28 +15,24 @@ function App() {
       {/* <header className="App-header">
       </header> */}
 
-      <Container>
-        <Row>
-          <Col md={12}> Custom Quotes </Col>
-        </Row>
-        <Row>
-          <Col md={3}>Left Menu</Col>
-          <Col md={9}>
-            <Container >
-              <Switch>
-                <Route exact path="/" component={ListRules} />
-                <Route path="/create" component={CreateRule} />
-                <Route path="/edit" component={EditRule} />
-              </Switch>
-            </Container>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>Footer</Col>
-        </Row>
-      </Container>
+      <div id="header">Custom Quotation</div>
+      <div id="leftMenu">
+        Home
+      </div>
+      <div id="main">
 
-    </div>
+              <Container >
+                <Switch>
+                  <Route exact path="/" component={ListRules} />
+                  <Route path="/create" component={CreateRule} />
+                  <Route path="/edit" component={EditRule} />
+                </Switch>
+              </Container>
+      </div>
+      <div id="footer">
+        Footer
+        </div>
+      </div>
   );
 }
 
