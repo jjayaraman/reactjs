@@ -35,7 +35,7 @@ export default class Menu extends Component {
                },
                {
                   label: 'Rules',
-                  icon: 'pi pi-fw pi-th-large',
+                  icon: 'pi pi-fw pi-list',
                   items: [
                      {
                         label: 'Create',
@@ -49,7 +49,7 @@ export default class Menu extends Component {
                },
                {
                   label: 'Price',
-                  icon: 'pi pi-fw pi-th-large',
+                  icon: 'pi pi-fw pi-dollar',
                   items: [
                      {
                         label: 'Create',
@@ -63,7 +63,7 @@ export default class Menu extends Component {
                },
                {
                   label: 'Price Parameters',
-                  icon: 'pi pi-fw pi-th-large',
+                  icon: 'pi pi-fw pi-dollar',
                   items: [
                      {
                         label: 'Create',
@@ -77,11 +77,11 @@ export default class Menu extends Component {
                },
                {
                   label: 'Users',
-                  icon: 'pi pi-fw pi-th-large',
+                  icon: 'pi pi-fw pi-user',
                   items: [
                      {
                         label: 'Create',
-                        icon: 'pi pi-fw pi-plus'
+                        icon: 'pi pi-fw pi-user-plus'
                      },
                      {
                         label: 'Search',
