@@ -31,7 +31,7 @@ function App() {
               </Container>
       </div>
       <div id="footer">
-        Footer
+        LGC. All rights reserved. 2019 
         </div>
       </div>
   );
