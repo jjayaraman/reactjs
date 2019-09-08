@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { PanelMenu } from 'primereact/panelmenu';
 
+
 export default class Menu extends Component {
 
    constructor() {
@@ -68,11 +69,13 @@ export default class Menu extends Component {
                      items: [
                         {
                            label: 'Create',
-                           icon: 'pi pi-fw pi-plus'
+                           icon: 'pi pi-fw pi-plus',
+                           url: '/admin/price-parameter/create'
                         },
                         {
                            label: 'Search',
-                           icon: 'pi pi-fw pi-search'
+                           icon: 'pi pi-fw pi-search',
+                           url: '/admin/price-parameter/search'
                         }
                      ]
                   },

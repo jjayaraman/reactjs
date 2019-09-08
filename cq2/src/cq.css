@@ -77,3 +77,10 @@
     padding: 2px;
     font-size: 10px;
 }
+
+#heading {
+    width: 100vw;
+    height: 25px;
+    background-color: black;
+    color: white;
+}

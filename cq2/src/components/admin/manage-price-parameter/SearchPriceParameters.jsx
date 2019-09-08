@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { DataTable } from 'primereact/datatable';
 
 export default class SearchPriceParameters extends Component {
 
