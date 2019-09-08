@@ -8,6 +8,7 @@ import CreateRule from './components/admin/manage-rule/CreateRule';
 import EditRule from './components/admin/manage-rule/EditRule';
 import { Container, Row, Col } from 'react-bootstrap';
 import Menu from './components/menu/Menu';
+import SearchPriceParameters from './components/admin/manage-price-parameter/SearchPriceParameters';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/" component={ListRules} />
             <Route path="/create" component={CreateRule} />
             <Route path="/edit" component={EditRule} />
+            <Route path="/admin/price-parameter/search" component={SearchPriceParameters}></Route>
           </Switch>
         </Container>
       </div>
