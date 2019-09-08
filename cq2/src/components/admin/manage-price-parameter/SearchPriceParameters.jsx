@@ -10,19 +10,22 @@ export default class SearchPriceParameters extends Component {
             isLoaded: false,
             data: []
         }
-        this.loadData();
-        console.log(this.state);
-        
     }
 
-    loadData() {
+    componentDidMount() {
         const URL = "https://jsonplaceholder.typicode.com/users";
         fetch(URL)
-            .then(data => {
-                this.setState({error : null, isLoaded: true, data : data})
+            .then(data => data.json())
+            .then(json => {
+                console.log('json ', json);
+                this.setState({ error: null, isLoaded: true, data: json })
             })
             .catch(error => {
-                this.setState({error : error, isLoaded: true, data : []});
+                console.log('error : ', error);
+                this.setState({ error: error, isLoaded: true, data: [] });
+            })
+            .finally(() => {
+                console.log('mount : ', this.state);
             })
     }
 
@@ -32,10 +35,30 @@ export default class SearchPriceParameters extends Component {
 
 
     render() {
-        return (
-            <div>
-                State : {this.state};
-            </div>
-        )
+        const { error, isLoaded, data } = this.state;
+
+        if (error) {
+            return (
+                <div>Error : {error}</div>
+            );
+        }
+        else if (!isLoaded) {
+            return (
+                <div>Loading...</div>
+            );
+        }
+        else {
+            return (
+                <div>
+                    <ol>
+                        {data.map(
+                            row =>
+                                (<li key={row.id}>{row.name}</li>)
+                        )}
+                    </ol>
+                </div>
+            )
+        }
+
     }
 }
