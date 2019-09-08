@@ -18,6 +18,7 @@ function App() {
 
       <div id="header-logo"><img src={logo} alt="Logo" height="50px" ></img></div>
       <div id="header">Custom Quotation</div>
+      <div id="userInfo">Jay Jay</div>
       <div id="leftMenu">
         <Menu></Menu>
       </div>
