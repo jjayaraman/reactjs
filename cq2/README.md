@@ -70,9 +70,16 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### Dockerisation
 
+## Development
 1) Build image command 
     docker build . -t jjayaraman/react:1.0.0
 
 2) Run the container command
     docker run -v ${PWD}:/app -v /app/node_modules -p 3000:3000 --rm jjayaraman/react:1.0.0
 
+## Production
+
+1) Build
+    docker build . -f Dockerfile-prod -t jjayaraman/reactprod:1.0.0
+2) Run
+    docker run -it -p 80:80  --rm jjayaraman/reactprod:1.0.0
