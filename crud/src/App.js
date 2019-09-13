@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
-import Create from "./components/Create"
+import CreateForm from './components/CreateForm';
+import { Container } from 'react-bootstrap';
+import Login from './components/Login';
 
 function App() {
   return (
     <div>
-      <h1>Hello React</h1>
-      <br></br>
-      <Create></Create>
+      <Container>
+        {/* <Login></Login> */}
+        <CreateForm></CreateForm>
+      </Container>
     </div>
   );
 }
