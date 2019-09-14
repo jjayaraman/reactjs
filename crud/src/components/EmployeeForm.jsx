@@ -5,7 +5,7 @@ export default class EmployeeForm extends Component {
 
     constructor(props) {
         super(props);
-        console.log('this.props.employee ', this.props.employee);
+        console.log('employee from parent : ', this.props.employee);
     }
 
     /** Generic handle change events for all fields */
@@ -16,7 +16,6 @@ export default class EmployeeForm extends Component {
     render() {
 
         const { employee } = this.props;
-        //        console.log('ef render ', employee.firstName);
 
         return (
             <div>
@@ -25,7 +24,7 @@ export default class EmployeeForm extends Component {
                     <Form.Control type="text" value={employee.firstName} onChange={this.handleChange} placeholder="Enter first name" />
                 </Form.Group>
 
-                <Form.Group controlId="lastname">
+                <Form.Group controlId="lastName">
                     <Form.Label>Last name</Form.Label>
                     <Form.Control type="text" value={employee.lastName} onChange={this.handleChange} placeholder="Enter last name" />
                 </Form.Group>

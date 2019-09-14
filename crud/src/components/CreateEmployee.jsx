@@ -11,11 +11,11 @@ export default class CreateEmployee extends React.Component {
         this.employeeService = new EmployeeService();
         this.state = {
             employee: {
-                'firstName': 'a',
-                'lastName': 'b',
+                'firstName': '',
+                'lastName': '',
                 'birthDate': '',
                 'hireDate': '',
-                'gender': 'F'
+                'gender': ''
             }
         }
     }
@@ -32,9 +32,11 @@ export default class CreateEmployee extends React.Component {
             })
     }
 
-    handleChange = (e) => {
+    handleChange = e => {
         console.log('getEmployeeData :: ', e.target.id + "::" + e.target.value);
-        this.setState({ employee: { [e.target.id]: e.target.value } });
+        let emp = this.state.employee;
+        emp[e.target.id] = e.target.value;
+        this.setState({ employee: emp });
     }
 
     render() {
