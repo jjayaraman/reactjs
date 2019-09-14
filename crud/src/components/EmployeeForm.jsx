@@ -10,17 +10,16 @@ export default class EmployeeForm extends Component {
 
     /** Generic handle change events for all fields */
     handleChange = e => {
-        this.props.employee[e.target.id] = e.target.value;
+        this.props.handleChange(e);
     }
-
 
     render() {
 
         const { employee } = this.props;
+        //        console.log('ef render ', employee.firstName);
 
         return (
             <div>
-
                 <Form.Group controlId="firstName">
                     <Form.Label>First name</Form.Label>
                     <Form.Control type="text" value={employee.firstName} onChange={this.handleChange} placeholder="Enter first name" />

@@ -10,8 +10,8 @@ function App() {
     <div>
       <Container>
         {/* <Login></Login> */}
-        {/* <CreateEmployee></CreateEmployee> */}
-        <EditEmployee></EditEmployee>
+        <CreateEmployee></CreateEmployee>
+        {/* <EditEmployee></EditEmployee> */}
       </Container>
     </div>
   );

@@ -6,23 +6,23 @@ import EmployeeService from '../services/EmployeeService';
 
 export default class CreateEmployee extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.employeeService = new EmployeeService();
         this.state = {
             employee: {
-                'firstName': '',
-                'lastName': ''
-                // 'birthDate': '',
-                // 'hireDate': '',
-                // 'gender': ''
+                'firstName': 'a',
+                'lastName': 'b',
+                'birthDate': '',
+                'hireDate': '',
+                'gender': 'F'
             }
         }
     }
 
     save = () => {
-        console.log(this.state.values);
-        this.employeeService.createEmployee(this.state.values)
+        console.log("saving :: ", this.state.employee);
+        this.employeeService.createEmployee(this.state.employee)
             .then(result => {
                 this.setState({ error: null });
             })
@@ -32,7 +32,13 @@ export default class CreateEmployee extends React.Component {
             })
     }
 
+    handleChange = (e) => {
+        console.log('getEmployeeData :: ', e.target.id + "::" + e.target.value);
+        this.setState({ employee: { [e.target.id]: e.target.value } });
+    }
+
     render() {
+
         return (
             <div>
                 <Form>
@@ -42,7 +48,7 @@ export default class CreateEmployee extends React.Component {
                         <Card.Header>Create Employee</Card.Header>
                         <Card.Body>
 
-                            <EmployeeForm employee={this.state.employee}></EmployeeForm>
+                            <EmployeeForm employee={this.state.employee} handleChange={this.handleChange} ></EmployeeForm>
                             <Row>
                                 <Col>
                                     <Button variant='primary' type='button' onClick={this.save}>Create</Button>
