@@ -33,10 +33,7 @@ export default class CreateEmployee extends React.Component {
     }
 
     handleChange = e => {
-        console.log('getEmployeeData :: ', e.target.id + "::" + e.target.value);
-        let emp = this.state.employee;
-        emp[e.target.id] = e.target.value;
-        this.setState({ employee: emp });
+        this.setState({ employee: { ...this.state.employee, [e.target.id]: e.target.value } });
     }
 
     render() {

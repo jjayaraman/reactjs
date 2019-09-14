@@ -10,7 +10,11 @@ const config = {
 export default class EmployeeService {
 
     getAllEmployees() {
-        return axios.get(EMPLOYEE_API_BASE, config);
+        return axios.get(EMPLOYEE_API_BASE + "/all", config);
+    }
+
+    getAllEmployeesPageable(page, size) {
+        return axios.get(EMPLOYEE_API_BASE + "/all/pageable?page=" + page + "&size=" + size, config);
     }
 
     getEmployeeById(id) {
