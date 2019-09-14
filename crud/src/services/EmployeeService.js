@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_BASE = 'http://localhost:8080/api'
+const EMPLOYEE_API_BASE = API_BASE + '/employee';
 
 const config = {
     'Content-type': 'application/json'
@@ -9,8 +10,15 @@ const config = {
 export default class EmployeeService {
 
     getAllEmployees() {
-        const URL = API_BASE + '/employee';
-        return axios.get(URL, config);
+        return axios.get(EMPLOYEE_API_BASE, config);
+    }
+
+    getEmployeeById(id) {
+        return axios.get(EMPLOYEE_API_BASE + "/" + id, config);
+    }
+
+    createEmployee(data) {
+        return axios.post(EMPLOYEE_API_BASE, data, config);
     }
 
 
