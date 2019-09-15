@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
 import { EmployeeTableRow } from './EmployeeTableRow';
-import { Table } from 'react-bootstrap';
+import { Table, Card, Button } from 'react-bootstrap';
+import { CardHeader, CardBody } from 'react-bootstrap/Card';
 
 class ListEmployees extends Component {
 
@@ -16,17 +17,24 @@ class ListEmployees extends Component {
     }
 
     componentDidMount() {
-        this.employeeService.getAllEmployeesPageable(1, 100)
-            .then(result => {
-                console.log('result :', result);
+        this.loadEmployeesPaging(1, 100);
+    }
 
-                if (result && result.status === 200 && result.data) {
+    loadEmployeesPaging(page, size) {
+        this.employeeService.getAllEmployeesPageable(page, size)
+            .then(result => {
+                console.log('result ', result);
+                if (result && result.status === 200 && result.data && result.data.content) {
                     this.setState({ error: false, isLoaded: true, employees: result.data.content });
                 }
             })
             .catch(err => {
                 this.setState({ error: true, isLoaded: true, employees: [] });
             })
+    }
+
+    openAddEmployee = () => {
+        this.props.history.push('/employee-create');
     }
 
     render() {
@@ -45,28 +53,39 @@ class ListEmployees extends Component {
                 </div>
             );
         } else {
+
             return (
                 <div>
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Birth Date</th>
-                                <th>Hire Date</th>
-                                <th>Gender</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                employees.map(employee => (
-                                    <EmployeeTableRow key={employee.id} employee={employee}></EmployeeTableRow>
-                                ))
-                            }
-                        </tbody>
-                    </Table>
+                    <Card>
+                        <Card.Header>
+                            Manage Employee
+                        </Card.Header>
+                        <Card.Body>
+                            <Button onClick={this.openAddEmployee} >Add Employee</Button>
+                            <br /><br />
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>First name</th>
+                                        <th>Last name</th>
+                                        <th>Birth Date</th>
+                                        <th>Hire Date</th>
+                                        <th>Gender</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        employees.map(employee => (
+                                            <EmployeeTableRow key={employee.id} employee={employee}></EmployeeTableRow>
+                                        ))
+                                    }
+                                </tbody>
+                            </Table>
 
+
+                        </Card.Body>
+                    </Card>
                 </div>
             );
         }

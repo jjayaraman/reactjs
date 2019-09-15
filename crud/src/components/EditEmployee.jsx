@@ -1,29 +1,47 @@
 import React from 'react';
 import EmployeeForm from './EmployeeForm';
 import EmployeeService from '../services/EmployeeService';
+import { Card } from 'react-bootstrap';
 
 export default class EditEmployee extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.employeeService = new EmployeeService();
         this.state = {
-            employee: null
+            error: false,
+            isLoaded: false,
+            employee: {
+                'firstName': '',
+                'lastName': '',
+                'birthDate': '',
+                'hireDate': '',
+                'gender': ''
+            }
         }
+        console.log('this.props', this.props.match.params);
+
     }
 
     componentDidMount() {
-        const dummyId = 1;
-        this.employeeService.getEmployeeById(dummyId)
-            .then(result => {
-                if (result && result.status === 200 && result.data) {
-                    this.setState({ error: false, isLoaded: true, employee: result.data });
-                }
-            })
-            .catch(err => {
-                this.setState({ error: true, isLoaded: true, employee: null })
-                console.log('err : ', err);
-            })
+        if (this.props.match && this.props.match.params) {
+            const employeeId = this.props.match.params.id;
+            if (isNaN(employeeId)) {
+                this.setState({ isLoaded: true });
+                return;
+            }
+            this.employeeService.getEmployeeById(employeeId)
+                .then(result => {
+                    if (result && result.status === 200 && result.data) {
+                        this.setState({ error: false, isLoaded: true, employee: result.data });
+                    }
+                })
+                .catch(err => {
+                    this.setState({ error: true, isLoaded: true, employee: null })
+                    console.log('err : ', err);
+                })
+
+        }
     }
 
     render() {
@@ -39,8 +57,12 @@ export default class EditEmployee extends React.Component {
         else {
             return (
                 <div>
-
-                    <EmployeeForm employee={employee}></EmployeeForm>
+                    <Card>
+                        <Card.Header>Edit Employee</Card.Header>
+                        <Card.Body>
+                            <EmployeeForm employee={employee}></EmployeeForm>
+                        </Card.Body>
+                    </Card>
                 </div>
             );
         }

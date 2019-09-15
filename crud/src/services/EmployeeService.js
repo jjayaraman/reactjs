@@ -9,12 +9,12 @@ const config = {
 
 export default class EmployeeService {
 
-    getAllEmployees() {
-        return axios.get(EMPLOYEE_API_BASE + "/all", config);
-    }
+    // getAllEmployees() {
+    //     return axios.get(API_BASE + "/employees", config);
+    // }
 
     getAllEmployeesPageable(page, size) {
-        return axios.get(EMPLOYEE_API_BASE + "/all/pageable?page=" + page + "&size=" + size, config);
+        return axios.get(API_BASE + "/employees?page=" + page + "&size=" + size, config);
     }
 
     getEmployeeById(id) {
