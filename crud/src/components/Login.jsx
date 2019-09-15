@@ -14,9 +14,9 @@ export default class Login extends React.Component {
         }
 
     }
-    handleChange = e => {
-        this.setState({ values: { ...this.state.values, [e.target.id]: e.target.value } })
-    }
+    // handleChange = e => {
+    //     this.setState({ values: { ...this.state.values, [e.target.id]: e.target.value } })
+    // }
 
     login = () => {
         console.log('state : ', this.state.values)
@@ -50,20 +50,22 @@ export default class Login extends React.Component {
                                         <Card.Body>
                                             <Form.Group controlId="username">
                                                 <Form.Label>User</Form.Label>
-                                                <Form.Control type="email" value={values.username} onChange={this.handleChange} placeholder="Enter email" />
+                                                <Form.Control type="email" value={values.username}
+                                                    onChange={handleChange} onBlur={handleBlur} placeholder="Enter email" />
                                             </Form.Group>
 
                                             <Form.Group controlId="password">
                                                 <Form.Label>Password</Form.Label>
-                                                <Form.Control type="password" value={values.password} onChange={this.handleChange} placeholder="Enter password" />
+                                                <Form.Control type="password" value={values.password}
+                                                    onChange={handleChange} onBlur={handleBlur} placeholder="Enter password" />
                                             </Form.Group>
 
-                                            <Button variant="primary" type="button" onClick={this.login}>Submit</Button>
+                                            <Button variant="primary" type="button" onClick={this.login} disabled={isSubmitting}>Submit</Button>
                                         </Card.Body>
                                     </Card>
                                 </Form>
-                            )};
-            </Formik>
+                            )}
+                </Formik>
             </div>
         );
     }
