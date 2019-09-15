@@ -35,6 +35,9 @@ export default class Login extends React.Component {
                         if (!values.username) {
                             errors.username = 'Required'
                         }
+                        if (!values.password) {
+                            errors.password = 'Required'
+                        }
                         return errors;
                     }}
                     onSubmit={(values) => {
@@ -52,12 +55,14 @@ export default class Login extends React.Component {
                                                 <Form.Label>User</Form.Label>
                                                 <Form.Control type="email" value={values.username}
                                                     onChange={handleChange} onBlur={handleBlur} placeholder="Enter email" />
+                                                {errors.username && touched.username && errors.username}
                                             </Form.Group>
 
                                             <Form.Group controlId="password">
                                                 <Form.Label>Password</Form.Label>
                                                 <Form.Control type="password" value={values.password}
                                                     onChange={handleChange} onBlur={handleBlur} placeholder="Enter password" />
+                                                {errors.password && touched.password && errors.password}
                                             </Form.Group>
 
                                             <Button variant="primary" type="button" onClick={this.login} disabled={isSubmitting}>Submit</Button>
