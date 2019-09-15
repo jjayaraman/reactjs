@@ -25,6 +25,7 @@ export default class CreateEmployee extends React.Component {
         this.employeeService.createEmployee(this.state.employee)
             .then(result => {
                 this.setState({ error: null });
+                this.props.history.push('/employees')
             })
             .catch(err => {
                 console.log(err);

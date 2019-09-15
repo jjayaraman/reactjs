@@ -1,96 +1,107 @@
 import React, { Component } from 'react'
-// import { Form } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 
-import { Formik, Form, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as  Yup from 'yup'
 
 export default class ValidateDemo extends Component {
 
-    constructor(props) {
-        super(props);
-        console.log('employee from parent : ', this.props.employee);
-    }
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         employee: {
+    //             'firstName': '',
+    //             'lastName': '',
+    //             'birthDate': '',
+    //             'hireDate': '',
+    //             'gender': ''
+    //         }
+    //     }
+    // }
 
-    /** Generic handle change events for all fields */
-    handleChange = e => {
-        this.props.handleChange(e);
-    }
 
     render() {
 
-        const { employee } = this.props;
+        // const { employee } = this.state;
+
+        const handleSubmit = (values) => {
+            console.log('submitting...', values);
+
+        }
 
         const initalValues = {
-            'firstName': '',
-            'lastName': '',
-            'birthDate': '',
-            'hireDate': '',
-            'gender': ''
+            firstName: '',
+            lastName: '',
+            birthDate: '',
+            hireDate: '',
+            gender: ''
         }
         const validationSchema =
             Yup.object().shape(
                 {
-                    'firstName': Yup.string()
-                        .required('First name is required')
-                        .length(10)
-                        .max(10, 'Max 10 characters allowed'),
-                    'lastName': Yup.string()
-                        .required('Last name is required')
-                        .min(5, 'At least 5 characters'),
-                    'birthDate': Yup.date().required('Birth date is required'),
-                    'hireDate': Yup.date().required('Hire Date is required'),
-                    'gender': Yup.string().required('Gender is required'),
+                    firstName: Yup.string()
+                        .required('First name is required'),
+                    // .length(10)
+                    // .max(10, 'Max 10 characters allowed'),
+                    lastName: Yup.string()
+                        .required('Last name is required'),
+                    // .min(5, 'At least 5 characters'),
+                    birthDate: Yup.date().required('Birth date is required'),
+                    hireDate: Yup.date().required('Hire Date is required'),
+                    gender: Yup.string().required('Gender is required')
                 }
             )
 
-        const render = ({ errors, status, touched }) =>
+        const className = (errors, touched, field) => {
+            return 'form-control' + (errors[field] && touched[field] ? ' is-invalid' : '');
+        }
+
+        const render = ({ errors, status, touched, values, handleChange, handleBlur, isSubmitting }) =>
             (
-                <form>
-                    <Form.Group controlId="firstName">
-                        <Form.Label>First name</Form.Label>
-                        <Form.Control type="text" value={employee.firstName} onChange={this.handleChange} placeholder="Enter first name" />
+                <Form>
+                    <div className="form-group">
+                        <label htmlFor="firstName">First name</label>
+                        <Field name="firstName" type="text" className={className(errors, touched, 'firstName')} placeholder="Enter first name" />
                         <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
-                    </Form.Group>
-
-                    <Form.Group controlId="lastName">
-                        <Form.Label>Last name</Form.Label>
-                        <Form.Control type="text" value={employee.lastName} onChange={this.handleChange} placeholder="Enter last name" />
-                    </Form.Group>
-
-                    <Form.Group controlId="birthDate">
-                        <Form.Label>Date of birth</Form.Label>
-                        <Form.Control type="date" value={employee.birthDate} onChange={this.handleChange} />
-                    </Form.Group>
-
-                    <Form.Group controlId="hireDate">
-                        <Form.Label>Date of hire</Form.Label>
-                        <Form.Control type="date" value={employee.hireDate} onChange={this.handleChange} />
-                    </Form.Group>
-
-                    <Form.Group controlId="gender">
-                        <Form.Label>Gender</Form.Label>
-                        <Form.Control as="select" value={employee.gender} onChange={this.handleChange}>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="lastName">Last name</label>
+                        <Field name="lastName" type="text" className={className(errors, touched, 'lastName')} placeholder="Enter last name" />
+                        <ErrorMessage name="lastName" component="div" className="invalid-feedback" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="birthDate">Date of birth</label>
+                        <Field name="birthDate" type="date" className={className(errors, touched, 'birthDate')} />
+                        <ErrorMessage name="birthDate" component="div" className="invalid-feedback" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="hireDate">Date of hire</label>
+                        <Field name="hireDate" type="date" className={className(errors, touched, 'hireDate')} />
+                        <ErrorMessage name="hireDate" component="div" className="invalid-feedback" />
+                    </div>
+                    {/* <div className="form-group">
+                        <label htmlFor="gender">Gender</label>
+                        <select name="gender" value={values.gender}
+                            onChange={handleChange}
+                            onBlur={handleBlur}>
                             <option value="">Please select</option>
                             <option value="F">Female</option>
                             <option value="M">Male</option>
-                        </Form.Control>
-                    </Form.Group>
-                </form >
+                        </select>
+                        <ErrorMessage name="gender" component="div" className="invalid-feedback" />
+                    </div> */}
+                    <div className="form-group">
+                        <button type="submit" className="btn btn-primary mr-2" disabled={isSubmitting}>Create</button>
+                    </div>
+                </Form >
             )
-
-        // onSubmit = (fields) => {
-        //     console.log('onSubmit : ', fields);
-
-        // }
 
         return (
             <Formik
                 initalValues={initalValues}
                 validationSchema={validationSchema}
-                onSubmit={fields => {
-                    alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
-                }}
+                onSubmit={handleSubmit}
                 render={render} />
         )
     }

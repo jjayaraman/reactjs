@@ -1,7 +1,7 @@
 import React from 'react';
 import EmployeeForm from './EmployeeForm';
 import EmployeeService from '../services/EmployeeService';
-import { Card } from 'react-bootstrap';
+import { Card, Button, Alert } from 'react-bootstrap';
 
 export default class EditEmployee extends React.Component {
 
@@ -44,6 +44,25 @@ export default class EditEmployee extends React.Component {
         }
     }
 
+    handleChange = e => {
+        // let employee = this.state.employee;
+        // employee[e.target.id] = e.target.value;
+        // this.setState({ employee })
+        this.setState({ employee: { ...this.state.employee, [e.target.id]: e.target.value } })
+    }
+
+    update = () => {
+
+        this.employeeService.updateEmployee(this.state.employee)
+            .then(result => {
+                console.log('updated', result);
+                this.props.history.push("/employees");
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     render() {
 
         const { error, isLoaded, employee } = this.state;
@@ -60,7 +79,9 @@ export default class EditEmployee extends React.Component {
                     <Card>
                         <Card.Header>Edit Employee</Card.Header>
                         <Card.Body>
-                            <EmployeeForm employee={employee}></EmployeeForm>
+                            <EmployeeForm employee={employee} handleChange={this.handleChange}></EmployeeForm>
+                            <Button variant='primary' type='button' onClick={this.update}>Update</Button>
+
                         </Card.Body>
                     </Card>
                 </div>

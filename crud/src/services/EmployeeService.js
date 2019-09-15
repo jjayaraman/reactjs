@@ -25,5 +25,10 @@ export default class EmployeeService {
         return axios.post(EMPLOYEE_API_BASE, data, config);
     }
 
+    updateEmployee(data) {
+        console.log('updating ', data);
+
+        return axios.put(EMPLOYEE_API_BASE, data, config)
+    }
 
 }
