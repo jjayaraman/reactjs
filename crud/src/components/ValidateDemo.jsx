@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Form } from 'react-bootstrap'
+// import { Form } from 'react-bootstrap'
 
 
-import { Formik, ErrorMessage } from 'formik'
+import { Formik, Form, ErrorMessage } from 'formik'
 import * as  Yup from 'yup'
 
-export default class EmployeeForm extends Component {
+export default class ValidateDemo extends Component {
 
     constructor(props) {
         super(props);

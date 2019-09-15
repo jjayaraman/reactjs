@@ -7,6 +7,8 @@ import EditEmployee from './components/EditEmployee';
 import ListEmployees from './components/ListEmployees';
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import NavLink from 'react-bootstrap/NavLink';
+import ValidateDemo from './components/ValidateDemo';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
               <NavDropdown.Item href="/employees">Employees List</NavDropdown.Item>
               <NavDropdown.Item href="/employee-create">Create Employee</NavDropdown.Item>
             </NavDropdown>
+            <NavLink href="/validate">Validate Demo</NavLink>
           </Nav>
 
         </Navbar>
@@ -32,7 +35,7 @@ function App() {
           <Route path="/employees" component={ListEmployees} />
           <Route path="/employee/:id" component={EditEmployee}></Route>
           <Route path='/employee-create' component={CreateEmployee}></Route>
-
+          <Route path="/validate" component={ValidateDemo}></Route>
         </Router>
 
 

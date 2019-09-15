@@ -40,23 +40,23 @@ export default class CreateEmployee extends React.Component {
 
         return (
             <div>
-                <Form>
-                    <Alert variant='primary'>Employee</Alert>
+                {/* <Form> */}
+                <Alert variant='primary'>Employee</Alert>
 
-                    <Card style={{ width: '500px' }}>
-                        <Card.Header>Create Employee</Card.Header>
-                        <Card.Body>
+                <Card style={{ width: '500px' }}>
+                    <Card.Header>Create Employee</Card.Header>
+                    <Card.Body>
 
-                            <EmployeeForm employee={this.state.employee} handleChange={this.handleChange} ></EmployeeForm>
-                            <Row>
-                                <Col>
-                                    <Button variant='primary' type='button' onClick={this.save}>Create</Button>
-                                </Col>
-                            </Row>
+                        <EmployeeForm employee={this.state.employee} handleChange={this.handleChange} ></EmployeeForm>
+                        <Row>
+                            <Col>
+                                <Button variant='primary' type='button' onClick={this.save}>Create</Button>
+                            </Col>
+                        </Row>
 
-                        </Card.Body>
-                    </Card>
-                </Form>
+                    </Card.Body>
+                </Card>
+                {/* </Form> */}
             </div>
         );
     }
