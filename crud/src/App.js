@@ -28,6 +28,7 @@ function App() {
         </Navbar>
 
         <Router>
+          <Route path="/login" component={Login}></Route>
           <Route path="/employees" component={ListEmployees} />
           <Route path="/employee/:id" component={EditEmployee}></Route>
           <Route path='/employee-create' component={CreateEmployee}></Route>
