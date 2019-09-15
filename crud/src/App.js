@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Login from './components/Login';
 import CreateEmployee from './components/CreateEmployee';
 import EditEmployee from './components/EditEmployee';
@@ -17,10 +17,14 @@ function App() {
         {/* <EditEmployee></EditEmployee> */}
 
         <Navbar>
-          <Navbar.Brand bg="dark">React CRUD</Navbar.Brand>
+          <Navbar.Brand>React CRUD</Navbar.Brand>
           <Nav>
-            <Nav.Link href="/employees">Employees</Nav.Link>
+            <NavDropdown title="Manage Employees">
+              <NavDropdown.Item href="/employees">Employees List</NavDropdown.Item>
+              <NavDropdown.Item href="/employee-create">Create Employee</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
+
         </Navbar>
 
         <Router>

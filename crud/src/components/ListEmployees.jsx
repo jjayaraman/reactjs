@@ -58,7 +58,7 @@ class ListEmployees extends Component {
                 <div>
                     <Card>
                         <Card.Header>
-                            Manage Employee
+                            Employee List
                         </Card.Header>
                         <Card.Body>
                             <Button onClick={this.openAddEmployee} >Add Employee</Button>
