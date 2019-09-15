@@ -9,7 +9,6 @@ export default class EmployeeForm extends Component {
 
     constructor(props) {
         super(props);
-        console.log('employee from parent : ', this.props.employee);
     }
 
     /** Generic handle change events for all fields */
