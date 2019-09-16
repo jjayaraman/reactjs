@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
 import { EmployeeTableRow } from './EmployeeTableRow';
 import { Table, Card, Button } from 'react-bootstrap';
-import { CardHeader, CardBody } from 'react-bootstrap/Card';
 
 class ListEmployees extends Component {
 
@@ -35,6 +34,18 @@ class ListEmployees extends Component {
 
     openAddEmployee = () => {
         this.props.history.push('/employee-create');
+    }
+
+    handleDelete = (id) => {
+        console.log('delete employee', id);
+        this.employeeService.deleteEmployee(id)
+            .then(() => {
+                console.log('deleted');
+                this.loadEmployeesPaging(1, 100);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     render() {
@@ -72,12 +83,13 @@ class ListEmployees extends Component {
                                         <th>Birth Date</th>
                                         <th>Hire Date</th>
                                         <th>Gender</th>
+                                        <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
                                         employees.map(employee => (
-                                            <EmployeeTableRow key={employee.id} employee={employee}></EmployeeTableRow>
+                                            <EmployeeTableRow key={employee.id} employee={employee} handleDelete={this.handleDelete}></EmployeeTableRow>
                                         ))
                                     }
                                 </tbody>

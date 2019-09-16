@@ -26,9 +26,11 @@ export default class EmployeeService {
     }
 
     updateEmployee(data) {
-        console.log('updating ', data);
-
         return axios.put(EMPLOYEE_API_BASE, data, config)
+    }
+
+    deleteEmployee(id) {
+        return axios.delete(EMPLOYEE_API_BASE + "/" + id, config);
     }
 
 }
