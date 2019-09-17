@@ -44,7 +44,7 @@ export default class EditEmployee extends React.Component {
         }
     }
 
-    handleChange = e => {
+    handleOnChange = e => {
         // let employee = this.state.employee;
         // employee[e.target.id] = e.target.value;
         // this.setState({ employee })
@@ -79,7 +79,7 @@ export default class EditEmployee extends React.Component {
                     <Card>
                         <Card.Header>Edit Employee</Card.Header>
                         <Card.Body>
-                            <EmployeeForm employee={employee} handleChange={this.handleChange}></EmployeeForm>
+                            <EmployeeForm employee={employee} handleOnChange={this.handleOnChange}></EmployeeForm>
                             <Button variant='primary' type='button' onClick={this.update}>Update</Button>
 
                         </Card.Body>

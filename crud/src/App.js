@@ -30,7 +30,8 @@ function App() {
 
         </Navbar>
 
-        <Router>
+        <Router basename="/crud">
+          <Route path="/" component={ListEmployees}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/employees" component={ListEmployees} />
           <Route path="/employee/:id" component={EditEmployee}></Route>
