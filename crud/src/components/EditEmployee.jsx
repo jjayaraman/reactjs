@@ -24,8 +24,11 @@ export default class EditEmployee extends React.Component {
     }
 
     componentDidMount() {
+        console.log(' this.props', this.props);
         if (this.props.match && this.props.match.params) {
             const employeeId = this.props.match.params.id;
+            console.log(' employeeId', employeeId);
+
             if (isNaN(employeeId)) {
                 this.setState({ isLoaded: true });
                 return;
@@ -49,6 +52,13 @@ export default class EditEmployee extends React.Component {
         // employee[e.target.id] = e.target.value;
         // this.setState({ employee })
         this.setState({ employee: { ...this.state.employee, [e.target.id]: e.target.value } })
+    }
+
+    handleOnBlur = e => {
+        this.setState(
+            {
+                errors: { ...this.state.errors, [e.target.id]: e.target.value }
+            });
     }
 
     update = () => {
@@ -79,7 +89,7 @@ export default class EditEmployee extends React.Component {
                     <Card>
                         <Card.Header>Edit Employee</Card.Header>
                         <Card.Body>
-                            <EmployeeForm employee={employee} handleOnChange={this.handleOnChange}></EmployeeForm>
+                            <EmployeeForm employee={employee} handleOnChange={this.handleOnChange} handleOnBlur={this.handleOnBlur}></EmployeeForm>
                             <Button variant='primary' type='button' onClick={this.update}>Update</Button>
 
                         </Card.Body>

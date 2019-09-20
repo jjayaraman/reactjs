@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8080/api'
+const API_BASE = process.env.REACT_APP_API_BASE
 const EMPLOYEE_API_BASE = API_BASE + '/employee';
 
 const config = {
@@ -8,6 +8,7 @@ const config = {
 }
 
 export default class EmployeeService {
+
 
     // getAllEmployees() {
     //     return axios.get(API_BASE + "/employees", config);

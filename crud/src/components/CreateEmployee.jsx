@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { Alert, Form, Col, Row, Button, Card } from 'react-bootstrap';
 import EmployeeForm from './EmployeeForm';
 import EmployeeService from '../services/EmployeeService';
@@ -14,7 +15,7 @@ export default class CreateEmployee extends React.Component {
             employee: {
                 'firstName': '',
                 'lastName': '',
-                'birthDate': '',
+                'birthDate': 1,
                 'hireDate': '',
                 'gender': ''
             },
@@ -24,30 +25,19 @@ export default class CreateEmployee extends React.Component {
                 'birthDate': false,
                 'hireDate': false,
                 'gender': false
-            }
+            },
+            errors: {}
         }
     }
 
-    validationSchema =
-        Yup.object().shape(
-            {
-                'firstName': Yup.string()
-                    .required('First name is required'),
-                //                    .max(10, 'Max 10 characters allowed'),
-                'lastName': Yup.string()
-                    .required('Last name is required'),
-                //                    .min(5, 'At least 5 characters'),
-                'birthDate': Yup.date().required('Birth date is required'),
-                'hireDate': Yup.date().required('Hire Date is required'),
-                'gender': Yup.string().required('Gender is required'),
-            }
-        )
+
+
     save = () => {
         console.log("saving :: ", this.state.employee);
         this.employeeService.createEmployee(this.state.employee)
             .then(result => {
                 this.setState({ error: null });
-                this.props.history.push('/employees')
+                //  this.props.history.push('/employees')
             })
             .catch(err => {
                 console.log(err);
@@ -63,50 +53,83 @@ export default class CreateEmployee extends React.Component {
             });
     }
 
-    // handleOnBlur = e => {
-    //     this.setState(
-    //         {
-    //             errors: { ...this.state.errors, [e.target.id]: e.target.value }
-    //         });
-    // }
+    vschema =
+        {
+            'firstName': Yup.string().required('First name is required'),
+            'lastName': Yup.string().required('Last name is required'),
+            'birthDate': Yup.date().required('Birth date is required'),
+            'hireDate': Yup.date().required('Hire Date is required'),
+            'gender': Yup.string().required('Gender is required')
+        }
 
-    handleOnBlur = () => {
-        console.log('handle on blur ');
 
-        this.validationSchema.validate(this.state.employee)
+    handleOnBlur = (e) => {
+        this.singleFieldValidationOnBlur(e);
+    }
+
+    singleFieldValidationOnBlur(e) {
+
+        let dynamicSchemaContent = {};
+        dynamicSchemaContent[e.target.id] = this.vschema[e.target.id];
+        const dynamicSchema = Yup.object().shape(dynamicSchemaContent);
+
+        let employeeData = {}
+        employeeData[e.target.id] = e.target.value;
+
+        dynamicSchema.validate(employeeData)
             .then(result => {
                 console.log('validation result ', result);
-                this.setState({ errors: { ...this.state.errors, errors: result } })
             }).catch(err => {
-                console.log('validation error :: ', err.value);
-                this.setState({ errors: err })
+                console.log('validation error :: ', err);
+                this.setState({ errors: err.errors })
+            });
+    }
+
+
+    allFieldsValidation(e) {
+        Yup.object().shape(this.vschema).validate(this.state.employee)
+            .then(result => {
+                console.log('validation result ', result);
+            }).catch(err => {
+                console.log('validation error :: ', err);
+                this.setState({ errors: err.errors })
             });
     }
 
 
     render() {
+        const { employee, touched, errors } = this.state;
 
         return (
             <div>
-                {/* <Form> */}
-                <Alert variant='primary'>Employee</Alert>
+                <Form>
+                    <Alert variant='primary'>Employee</Alert>
 
-                <Card>
-                    <Card.Header>Create Employee</Card.Header>
-                    <Card.Body>
+                    <Card>
+                        <Card.Header>Create Employee</Card.Header>
+                        <Card.Body>
 
-                        <EmployeeForm employee={this.state.employee} handleOnChange={this.handleOnChange}
-                            handleOnBlur={this.handleOnBlur} touched={this.state.touched} errors={this.state.errors}></EmployeeForm>
-                        <Row>
-                            <Col>
-                                <Button variant='primary' type='button' onClick={this.save}>Create</Button>
-                            </Col>
-                        </Row>
+                            <EmployeeForm employee={employee} handleOnChange={this.handleOnChange}
+                                handleOnBlur={this.handleOnBlur} touched={touched} errors={errors}></EmployeeForm>
+                            <Row>
+                                <Col>
+                                    <Button variant='primary' type='button' onClick={this.save}>Create</Button>
+                                </Col>
+                            </Row>
 
-                    </Card.Body>
-                </Card>
-                {/* </Form> */}
+                        </Card.Body>
+                    </Card>
+                </Form>
             </div>
         );
     }
+}
+
+
+CreateEmployee.prototypes = {
+    'firstName': PropTypes.string,
+    'lastName': PropTypes.string,
+    'birthDate': PropTypes.boolean,
+    'hireDate': PropTypes.date,
+    'gender': PropTypes.string
 }

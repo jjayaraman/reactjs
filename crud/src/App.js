@@ -10,7 +10,10 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import NavLink from 'react-bootstrap/NavLink';
 import ValidateDemo from './components/ValidateDemo';
 
+require('dotenv').config()
+
 function App() {
+
   return (
     <div>
       <Container>
@@ -29,9 +32,9 @@ function App() {
           </Nav>
 
         </Navbar>
-
-        <Router basename="/crud">
-          <Route path="/" component={ListEmployees}></Route>
+        {/* basename={process.env.REACT_APP_HOME_FODLER || ''} */}
+        <Router>
+          <Route path="/" exact component={ListEmployees}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/employees" component={ListEmployees} />
           <Route path="/employee/:id" component={EditEmployee}></Route>
