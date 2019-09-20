@@ -53,7 +53,7 @@ export default class CreateEmployee extends React.Component {
             });
     }
 
-    vschema =
+    validateSchemaFields =
         {
             'firstName': Yup.string().required('First name is required'),
             'lastName': Yup.string().required('Last name is required'),
@@ -64,29 +64,32 @@ export default class CreateEmployee extends React.Component {
 
 
     handleOnBlur = (e) => {
-        this.singleFieldValidationOnBlur(e);
+        this.validateField(e);
     }
 
-    singleFieldValidationOnBlur(e) {
+    /** Validate a single field */
+    validateField(e) {
+        const id = e.target.id;
+        console.log('id ', id);
 
         let dynamicSchemaContent = {};
-        dynamicSchemaContent[e.target.id] = this.vschema[e.target.id];
-        const dynamicSchema = Yup.object().shape(dynamicSchemaContent);
+        dynamicSchemaContent[id] = this.validateSchemaFields[id];
 
         let employeeData = {}
         employeeData[e.target.id] = e.target.value;
 
-        dynamicSchema.validate(employeeData)
+        Yup.object().shape(dynamicSchemaContent).validate(employeeData)
             .then(result => {
+                this.setState({ errors: { ...this.state.errors, [id]: undefined } })
                 console.log('validation result ', result);
             }).catch(err => {
                 console.log('validation error :: ', err);
-                this.setState({ errors: err.errors })
+                this.setState({ errors: { ...this.state.errors, [id]: err.errors } })
             });
     }
 
 
-    allFieldsValidation(e) {
+    validateAllFields(e) {
         Yup.object().shape(this.vschema).validate(this.state.employee)
             .then(result => {
                 console.log('validation result ', result);

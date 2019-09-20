@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './crud.css'
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import Login from './components/Login';
 import CreateEmployee from './components/CreateEmployee';
