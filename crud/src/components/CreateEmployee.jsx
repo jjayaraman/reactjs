@@ -51,11 +51,13 @@ export default class CreateEmployee extends React.Component {
                 employee: { ...this.state.employee, [e.target.id]: e.target.value },
                 touched: { ...this.state.touched, [e.target.id]: e.target.value ? true : false }
             });
+
+        this.validateField(e);
     }
 
     validateSchemaFields =
         {
-            'firstName': Yup.string().required('First name is required'),
+            'firstName': Yup.string().required('First name is required').max(10, 'Max allowed length is 10'),
             'lastName': Yup.string().required('Last name is required'),
             'birthDate': Yup.date().required('Birth date is required'),
             'hireDate': Yup.date().required('Hire Date is required'),
