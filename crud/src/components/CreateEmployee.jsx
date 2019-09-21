@@ -20,11 +20,11 @@ export default class CreateEmployee extends React.Component {
                 'gender': ''
             },
             touched: {
-                // 'firstName': false,
-                // 'lastName': false,
-                // 'birthDate': false,
-                // 'hireDate': false,
-                // 'gender': false
+                'firstName': false,
+                'lastName': false,
+                'birthDate': false,
+                'hireDate': false,
+                'gender': false
             },
             errors: {},
             isCreate: true,
@@ -96,9 +96,9 @@ export default class CreateEmployee extends React.Component {
         Yup.object().shape(dynamicSchemaContent).validate(employeeData)
             .then(result => {
                 this.setState({ errors: { ...this.state.errors, [id]: undefined } })
-                console.log('validation result ', result);
+                // console.log('validation result ', result);
             }).catch(err => {
-                console.log('validation error :: ', err);
+                // console.log('validation error :: ', err);
                 this.setState({
                     errors: { ...this.state.errors, [id]: err.errors }
                 })
@@ -117,7 +117,23 @@ export default class CreateEmployee extends React.Component {
     }
 
     reset = () => {
-        this.loadEmployee();
+        if (this.state.isCreate) {
+            this.setState({
+                employee: {
+                    'firstName': '',
+                    'lastName': '',
+                    'birthDate': '',
+                    'hireDate': '',
+                    'gender': ''
+                },
+                touched: {},
+                errors: {},
+                isCreate: true,
+                valid: false
+            });
+        } else {
+            this.loadEmployee();
+        }
         this.setState({ errors: '' })
     }
 
@@ -149,7 +165,6 @@ export default class CreateEmployee extends React.Component {
 
     render() {
         const { employee, touched, errors, isCreate } = this.state;
-        // console.log('state : ', JSON.stringify(this.state, null, 4));
 
         return (
             <div>
@@ -173,7 +188,7 @@ export default class CreateEmployee extends React.Component {
                         </Card.Body>
                     </Card>
                 </Form>
-            </div>
+            </div >
         );
     }
 }
