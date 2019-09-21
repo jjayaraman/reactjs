@@ -76,11 +76,22 @@ export default class CreateEmployee extends React.Component {
 
     validateSchemaFields =
         {
-            'firstName': Yup.string().required('First name is required').max(10, 'Max allowed length is 10'),
-            'lastName': Yup.string().required('Last name is required'),
-            'birthDate': Yup.date().required('Birth date is required'),
-            'hireDate': Yup.date().required('Hire Date is required'),
-            'gender': Yup.string().required('Gender is required')
+            'firstName': Yup.string()
+                .required('First name is required')
+                .min(5, 'Should be atleast 5 characters long')
+                .max(10, 'Max allowed length is 10'),
+            'lastName': Yup.string()
+                .required('Last name is required')
+                .min(5, 'Should be atleast 5 characters long')
+                .max(10, 'Max allowed length is 10'),
+            'birthDate': Yup.date()
+                .required('Birth date is required')
+                .max(new Date(), "Date cannot be greater than today"),
+            'hireDate': Yup.date()
+                .required('Hire Date is required')
+                .max(new Date(), "Date cannot be greater than today"),
+            'gender': Yup.string()
+                .required('Gender is required')
         }
 
     /** Validate a single field */
