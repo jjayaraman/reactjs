@@ -16,12 +16,12 @@ function EmployeeForm(props) {
 
     return (
         <div>
-            <pre style={{ color: "brown", border: "1px solid blue", padding: '5px' }}>
+            {/* <pre style={{ color: "brown", border: "1px solid blue", padding: '5px' }}>
                 <b>Debug Props</b> <br></br>
                 {JSON.stringify(props, null, 3)}
-            </pre>
+            </pre> 
             <br></br>
-
+            */}
             <Form.Group controlId="firstName">
                 <Form.Label>First name</Form.Label>
                 <Form.Control type="text" value={employee.firstName} onChange={handleOnChange} onBlur={handleOnBlur} placeholder="Enter first name" />

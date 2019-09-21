@@ -105,14 +105,15 @@ export default class CreateEmployee extends React.Component {
             })
     }
 
-
-    validateAllFields(e) {
+    validateAllFields() {
         Yup.object().shape(this.validateSchemaFields).validate(this.state.employee)
             .then(result => {
                 console.log('validation result ', result);
+                return true;
             }).catch(err => {
                 console.log('validation error :: ', err);
                 this.setState({ errors: { ...this.state.errors, [err.path]: err.errors } })
+                return false;
             });
     }
 
@@ -139,28 +140,31 @@ export default class CreateEmployee extends React.Component {
 
 
     save = () => {
-        console.log("saving :: ", this.state.employee);
-        this.employeeService.createEmployee(this.state.employee)
-            .then(result => {
-                this.setState({ error: null });
-                this.props.history.push('/employees')
-            })
-            .catch(err => {
-                console.log(err);
-                this.setState({ error: err });
-            })
+        if (this.validateAllFields()) {
+            console.log("saving :: ", this.state.employee);
+            this.employeeService.createEmployee(this.state.employee)
+                .then(result => {
+                    this.setState({ error: null });
+                    this.props.history.push('/employees')
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({ error: err });
+                })
+        }
     }
 
     update = () => {
-
-        this.employeeService.updateEmployee(this.state.employee)
-            .then(result => {
-                console.log('updated', result);
-                this.props.history.push("/employees");
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        if (this.validateAllFields()) {
+            this.employeeService.updateEmployee(this.state.employee)
+                .then(result => {
+                    console.log('updated', result);
+                    this.props.history.push("/employees");
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     render() {
