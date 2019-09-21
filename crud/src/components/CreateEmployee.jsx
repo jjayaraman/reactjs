@@ -15,22 +15,50 @@ export default class CreateEmployee extends React.Component {
             employee: {
                 'firstName': '',
                 'lastName': '',
-                'birthDate': 1,
+                'birthDate': '',
                 'hireDate': '',
                 'gender': ''
             },
             touched: {
-                'firstName': false,
-                'lastName': false,
-                'birthDate': false,
-                'hireDate': false,
-                'gender': false
+                // 'firstName': false,
+                // 'lastName': false,
+                // 'birthDate': false,
+                // 'hireDate': false,
+                // 'gender': false
             },
-            errors: {}
+            errors: {},
+            isCreate: true,
+            valid: false
         }
     }
 
+    /** For edit employee */
+    componentDidMount() {
+        this.loadEmployee();
+    }
 
+    loadEmployee = () => {
+
+        if (this.props.match && this.props.match.params) {
+            const employeeId = this.props.match.params.id;
+
+            if (isNaN(employeeId)) {
+                this.setState({ isLoaded: true });
+                return;
+            }
+            this.employeeService.getEmployeeById(employeeId)
+                .then(result => {
+                    if (result && result.status === 200 && result.data) {
+                        this.setState({ error: false, isLoaded: true, employee: result.data, isCreate: false });
+                    }
+                })
+                .catch(err => {
+                    this.setState({ error: true, isLoaded: true, employee: null })
+                    console.log('err : ', err);
+                })
+
+        }
+    }
 
     save = () => {
         console.log("saving :: ", this.state.employee);
@@ -48,10 +76,14 @@ export default class CreateEmployee extends React.Component {
     handleOnChange = e => {
         this.setState(
             {
-                employee: { ...this.state.employee, [e.target.id]: e.target.value },
-                touched: { ...this.state.touched, [e.target.id]: e.target.value ? true : false }
+                employee: { ...this.state.employee, [e.target.id]: e.target.value }
             });
 
+        this.validateField(e);
+    }
+
+    handleOnBlur = (e) => {
+        this.setState({ touched: { ...this.state.touched, [e.target.id]: true } })
         this.validateField(e);
     }
 
@@ -64,15 +96,9 @@ export default class CreateEmployee extends React.Component {
             'gender': Yup.string().required('Gender is required')
         }
 
-
-    handleOnBlur = (e) => {
-        this.validateField(e);
-    }
-
     /** Validate a single field */
     validateField(e) {
         const id = e.target.id;
-        console.log('id ', id);
 
         let dynamicSchemaContent = {};
         dynamicSchemaContent[id] = this.validateSchemaFields[id];
@@ -86,24 +112,31 @@ export default class CreateEmployee extends React.Component {
                 console.log('validation result ', result);
             }).catch(err => {
                 console.log('validation error :: ', err);
-                this.setState({ errors: { ...this.state.errors, [id]: err.errors } })
-            });
+                this.setState({
+                    errors: { ...this.state.errors, [id]: err.errors }
+                })
+            })
     }
 
 
     validateAllFields(e) {
-        Yup.object().shape(this.vschema).validate(this.state.employee)
+        Yup.object().shape(this.validateSchemaFields).validate(this.state.employee)
             .then(result => {
                 console.log('validation result ', result);
             }).catch(err => {
                 console.log('validation error :: ', err);
-                this.setState({ errors: err.errors })
+                this.setState({ errors: { ...this.state.errors, [err.path]: err.errors } })
             });
     }
 
+    reset = () => {
+        this.loadEmployee();
+        this.setState({ errors: '' })
+    }
 
     render() {
-        const { employee, touched, errors } = this.state;
+        const { employee, touched, errors, isCreate } = this.state;
+        // console.log('state : ', JSON.stringify(this.state, null, 4));
 
         return (
             <div>
@@ -111,14 +144,15 @@ export default class CreateEmployee extends React.Component {
                     <Alert variant='primary'>Employee</Alert>
 
                     <Card>
-                        <Card.Header>Create Employee</Card.Header>
+                        <Card.Header>{isCreate ? 'Create Employee' : 'Update Employee'}</Card.Header>
                         <Card.Body>
 
                             <EmployeeForm employee={employee} handleOnChange={this.handleOnChange}
                                 handleOnBlur={this.handleOnBlur} touched={touched} errors={errors}></EmployeeForm>
                             <Row>
                                 <Col>
-                                    <Button variant='primary' type='button' onClick={this.save}>Create</Button>
+                                    <Button variant='warning' type='button' onClick={this.reset} className="mr-1">{isCreate ? 'Clear' : 'Reset'}</Button>
+                                    <Button variant='primary' type='button' onClick={this.save} >{isCreate ? 'Create' : 'Update'}</Button>
                                 </Col>
                             </Row>
 

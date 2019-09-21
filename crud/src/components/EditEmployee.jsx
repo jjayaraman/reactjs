@@ -17,7 +17,8 @@ export default class EditEmployee extends React.Component {
                 'birthDate': '',
                 'hireDate': '',
                 'gender': ''
-            }
+            },
+            errors: {}
         }
         console.log('this.props', this.props.match.params);
 
@@ -75,7 +76,7 @@ export default class EditEmployee extends React.Component {
 
     render() {
 
-        const { error, isLoaded, employee } = this.state;
+        const { error, isLoaded, employee, errors } = this.state;
         console.log('Employee : ', this.state.employee);
 
         if (error) {
@@ -89,7 +90,7 @@ export default class EditEmployee extends React.Component {
                     <Card>
                         <Card.Header>Edit Employee</Card.Header>
                         <Card.Body>
-                            <EmployeeForm employee={employee} handleOnChange={this.handleOnChange} handleOnBlur={this.handleOnBlur}></EmployeeForm>
+                            <EmployeeForm employee={employee} handleOnChange={this.handleOnChange} handleOnBlur={this.handleOnBlur} errors={errors}></EmployeeForm>
                             <Button variant='primary' type='button' onClick={this.update}>Update</Button>
 
                         </Card.Body>
