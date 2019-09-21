@@ -60,19 +60,6 @@ export default class CreateEmployee extends React.Component {
         }
     }
 
-    save = () => {
-        console.log("saving :: ", this.state.employee);
-        this.employeeService.createEmployee(this.state.employee)
-            .then(result => {
-                this.setState({ error: null });
-                //  this.props.history.push('/employees')
-            })
-            .catch(err => {
-                console.log(err);
-                this.setState({ error: err });
-            })
-    }
-
     handleOnChange = e => {
         this.setState(
             {
@@ -134,6 +121,32 @@ export default class CreateEmployee extends React.Component {
         this.setState({ errors: '' })
     }
 
+
+    save = () => {
+        console.log("saving :: ", this.state.employee);
+        this.employeeService.createEmployee(this.state.employee)
+            .then(result => {
+                this.setState({ error: null });
+                this.props.history.push('/employees')
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({ error: err });
+            })
+    }
+
+    update = () => {
+
+        this.employeeService.updateEmployee(this.state.employee)
+            .then(result => {
+                console.log('updated', result);
+                this.props.history.push("/employees");
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
     render() {
         const { employee, touched, errors, isCreate } = this.state;
         // console.log('state : ', JSON.stringify(this.state, null, 4));
@@ -152,7 +165,8 @@ export default class CreateEmployee extends React.Component {
                             <Row>
                                 <Col>
                                     <Button variant='warning' type='button' onClick={this.reset} className="mr-1">{isCreate ? 'Clear' : 'Reset'}</Button>
-                                    <Button variant='primary' type='button' onClick={this.save} >{isCreate ? 'Create' : 'Update'}</Button>
+                                    {isCreate && <Button variant='primary' type='button' onClick={this.save} >Create</Button>}
+                                    {!isCreate && <Button variant='primary' type='button' onClick={this.update} >Update</Button>}
                                 </Col>
                             </Row>
 
