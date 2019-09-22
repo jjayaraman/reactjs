@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import UserContext from './../context/UserContext';
+import UserContext from '../context/UserContext';
 
 export default class One extends Component {
 
@@ -10,7 +10,7 @@ export default class One extends Component {
 
         return (
             <div>
-                user from the context is :  {name}
+                User from the context (using contextType) is :  {name}
 
             </div>
         )
