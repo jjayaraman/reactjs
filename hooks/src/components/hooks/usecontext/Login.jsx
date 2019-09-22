@@ -3,17 +3,22 @@ import PropTypes from 'prop-types'
 
 const Login = props => {
 
-    const [user, setUser] = useState({ username: '', email: '' });
+    console.log('props', props);
 
-    const { username, email } = user;
+    const [user, setUser] = useState({ username: '', email: '' });
 
     const handleOnChange = (e) => {
         setUser({ ...user, [e.target.id]: e.target.value })
     }
 
     const handleOnClick = () => {
+        // console.log('state ', user);
+        console.log(props);
 
+        props.setUserDetails();
     }
+
+    const { setUserDetails } = props;
 
     return (
         <div>
@@ -21,14 +26,14 @@ const Login = props => {
             <br />
 
             <label htmlFor='username'>user name</label>
-            <input id='username' type="text" value={username} onChange={handleOnChange} />
+            <input id='username' type="text" value={user.username} onChange={handleOnChange} />
             <br /><br />
 
             <label htmlFor='email'>email</label>
-            <input id='email' type="text" value={email} onChange={handleOnChange} />
+            <input id='email' type="text" value={user.email} onChange={handleOnChange} />
             <br />
 
-            <button onClick={handleOnClick}>Login</button>
+            <button onClick={setUserDetails}>Login</button>
         </div>
     )
 }
