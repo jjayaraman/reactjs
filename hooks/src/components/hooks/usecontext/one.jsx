@@ -5,6 +5,10 @@ export default class One extends Component {
 
     static contextType = UserContext;
 
+    componentDidMount() {
+        console.log('component did mount called');
+    }
+
     render() {
         const { name } = this.context;
 
