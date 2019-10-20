@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
@@ -33,25 +33,33 @@ class App extends React.Component {
   //   console.log('ud : ', this.user);
   // }
 
+  logProfile = (id, phase, actualTime, baseTime, startTime, commitTime) => {
+    console.log(`${id}'s ${phase} phase:`);
+    console.log(`Actual time: ${actualTime}`);
+    console.log(`Base time: ${baseTime}`);
+    console.log(`Start time: ${startTime}`);
+    console.log(`Commit time: ${commitTime}`);
+  };
+
   render() {
 
     return (
       <div className="App" >
         {/* <Counter></Counter> */}
+        <Profiler id="myapp" onRender={this.logProfile}>
+          <Router>
+            <Route exact path="/" component={Login}></Route>
+            <Route path="/login" render={(routeProps) => (<Login {...routeProps} {...this.props} setUserDetails={this.setUserDetails} ></Login>)} ></Route>
 
-        < Router >
-          <Route exact path="/" component={Login}></Route>
-          <Route path="/login" render={(routeProps) => (<Login {...routeProps} {...this.props} setUserDetails={this.setUserDetails} ></Login>)} ></Route>
+            <UserContextProvider value={this.user}>
+              <Route path="/one" component={One}></Route>
+              <Route path="/two" component={Two}></Route>
+              <Route path="/three" component={Three}></Route>
 
-          <UserContextProvider value={this.user}>
-            <Route path="/one" component={One}></Route>
-            <Route path="/two" component={Two}></Route>
-            <Route path="/three" component={Three}></Route>
-
-            <Route path="/setstate" component={Counter}></Route>
-          </UserContextProvider>
-        </Router>
-
+              <Route path="/setstate" component={Counter}></Route>
+            </UserContextProvider>
+          </Router>
+        </Profiler>
       </div >
     );
   }
