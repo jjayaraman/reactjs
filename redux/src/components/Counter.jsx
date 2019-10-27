@@ -1,22 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { COUNTER_INC, COUNTER_DEC } from '../redux/action/CounterAction'
 
 const Counter = (props) => {
+
     return (
         <div>
-            Count : props
+            Count : {props.count}<br />
+            <button onClick={props.handleAdd}>+</button>
+            <button onClick={props.handleReduce}>-</button>
         </div>
     )
 }
 
-const mapStateToProps = (state) => {
-    props.count = state.count
+const mapStateToProps = (state, props) => {
+    props = state
+    return props
 }
 
-const mapPropsToReducer = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        'INC': 1
+        handleAdd: () => dispatch({ type: COUNTER_INC, value: 1 }),
+        handleReduce: () => dispatch({ type: COUNTER_DEC, value: 1 })
     }
 }
 
-export default connect()(Counter)
+export default connect(mapStateToProps, mapDispatchToProps)(Counter)

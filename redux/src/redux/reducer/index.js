@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
-import countReducer from './CountReducer'
+import CountReducer from './CountReducer'
 
 export default combineReducers({
-    countReducer
+    CountReducer
 })

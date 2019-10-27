@@ -1,3 +1,6 @@
+
+import { COUNTER_INC, COUNTER_DEC } from "../action/CounterAction"
+
 const initialState = {
     count: 0
 }
@@ -5,15 +8,17 @@ const initialState = {
 const CountReducer = (state = initialState, action) => {
     let newState = { ...state }
     switch (action.type) {
-        case 'INC':
-            newState.count++
+        case COUNTER_INC:
+            newState.count += action.value
             break;
-        case 'DEC':
-            newState.count--
+        case COUNTER_DEC:
+            newState.count -= action.value
             break;
         default:
             break;
     }
+    console.log('countreducer returning ', newState);
+
     return newState
 }
 
