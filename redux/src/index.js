@@ -8,6 +8,7 @@ import { createStore } from 'redux'
 import reducer from './redux/reducer/CountReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+// { trace: true, traceLimit: 25 }
 const store = createStore(reducer, composeWithDevTools())
 
 ReactDOM.render(

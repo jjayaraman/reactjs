@@ -8,6 +8,8 @@ export default class TodoReducer {
         switch (action.type) {
             case TODO_CREATE:
                 return [...state, state.push(action.todo)]
+            case REMOVE_TODO:
+                return [...state, state.splice(action.todo)]
             default:
                 return state;
         }
