@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { Panel } from 'primereact/panel'
+
+import AnalyteList from './AnalyteList'
+import CreateForm from './CreateForm'
 
 const initialState = {
-    analytes: [{
+    masterAnalytes: [{
         "id": 37829,
         "code": "1",
         "desc": "acenaphthene-d10",
@@ -21,16 +25,24 @@ const initialState = {
         "desc": "1,4-dichlorobenzene-d4",
         "componentId": 241899,
         "casNumber": "3855-82-1"
-    }]
+    }],
+    analytes: []
 }
-const [state, setState] = useState(initialState)
 
 
 const CreateQuote = () => {
 
+    const [state, setState] = useState(initialState)
+
+    let analytes = state.analytes
+    let header = 'Create Custom Quotation'
+
     return (
         <div>
-            Create Quote
+            <Panel header={header}>
+                <CreateForm></CreateForm>
+                <AnalyteList analytes={analytes} />
+            </Panel>
         </div>
     )
 }
