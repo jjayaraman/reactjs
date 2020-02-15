@@ -4,64 +4,57 @@ import { AutoComplete } from 'primereact/autocomplete';
 
 
 const initialState = {
-    analytes: [{
-        "id": 37829,
-        "code": "1",
-        "desc": "acenaphthene-d10",
-        "componentId": 239968,
-        "casNumber": "15067-26-2"
-    },
-    {
-        "id": 37830,
-        "code": "2",
-        "desc": "chrysene-d12",
-        "componentId": 240254,
-        "casNumber": "1719-03-5"
-    },
-    {
-        "id": 37831,
-        "code": "3",
-        "desc": "1,4-dichlorobenzene-d4",
-        "componentId": 241899,
-        "casNumber": "3855-82-1"
-    }],
-
+    filteredAnalyte: [],
+    simples: ['methanol', 'acetone', 'floro'],
+    filteredSimple: []
 }
-
-
-
 
 
 const CreateForm = props => {
 
+    const { analytes, handleOnChange } = props
+    console.log('props', props);
+
+
     const [state, setState] = useState(initialState)
 
     const suggestAnalytes = (event) => {
-        console.log(event.query);
+        console.log('event query :: ', event.query);
 
-        let results = state.analytes.filter((analyte) => {
-            console.log('c', analyte);
+        let results = analytes.filter((analyte) => {
+            console.log('suggestAnalytes . analyte ', analyte);
             return analyte.casNumber.startsWith(event.query.casNumber);
         });
 
-        setState({ ...state, analyteSuggestions: results });
+        setState({ ...state, filteredAnalyte: results });
     }
 
-    const handleOnChange = (e) => {
-        console.log('hoc:', e);
+    const suggestSimple = (event) => {
+        console.log('event query :: ', event.query);
 
-        setState({ ...state, cas: e.value })
+        let results = state.simples.filter((simple) => {
+            console.log('suggestAnalytes . simple ', simple);
+            return simple.startsWith(event.query);
+        });
+
+        setState({ ...state, filteredSimple: results });
     }
 
     return (
         <div>
 
             <label>Select CAS</label>
-            <AutoComplete value={state.analytes} field='casNumber' onChange={handleOnChange}
-                suggestions={state.analyteSuggestions} completeMethod={suggestAnalytes} />
+            <AutoComplete id='cas' value={state.analyte} field="casNumber" onChange={handleOnChange}
+                suggestions={state.filteredAnalyte} completeMethod={suggestAnalytes} minLength={1} dropdown={true} />
             <br />
 
-            Debugger <pre>{JSON.stringify(state.analytes, null, 4)}</pre>
+
+            <label>Select CAS simple </label>
+            <AutoComplete id='simple' value={state.simple} onChange={handleOnChange}
+                suggestions={state.filteredSimple} completeMethod={suggestSimple} minLength={1} dropdown={true} />
+            <br />
+
+            Debugger <pre>{JSON.stringify(state, null, 4)}</pre>
         </div>
     )
 }
