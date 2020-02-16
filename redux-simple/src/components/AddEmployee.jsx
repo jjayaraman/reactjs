@@ -5,7 +5,9 @@ const AddEmployee = (props) => {
     return (
         <div>
             <h4>Add Employee</h4>
-            <input id='employeeName' value={props.employeeName} onChange={props.handleOnChange}></input>
+
+            <label htmlFor="name">Name</label>
+            <input id='name' value={props.employee.name} onChange={props.handleOnChange}></input>
             <button type='button' value='Add' onClick={props.addEmployee}>Add</button>
         </div>
     )
