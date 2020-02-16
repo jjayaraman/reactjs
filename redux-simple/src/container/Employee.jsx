@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import EmployeeList from '../components/EmployeeList'
 import AddEmployee from '../components/AddEmployee'
 import uuid from 'uuid'
+import { ADD_EMPLOYEE } from '../redux/actions/employeeAction'
 
 class Employee extends Component {
 
@@ -22,14 +23,14 @@ class Employee extends Component {
         this.setState(tempState)
     }
 
-    addEmployee = (e) => {
-        //e.preventDefault()
-        let tempState = { ...this.state }
-        tempState.employee['id'] = uuid.v4()
-        tempState.employees.push({ ...tempState.employee })
-        tempState.employee = { id: '', name: '' }
-        this.setState(tempState)
-    }
+    // addEmployee = (e) => {
+    //     //e.preventDefault()
+    //     let tempState = { ...this.state }
+    //     tempState.employee['id'] = uuid.v4()
+    //     tempState.employees.push({ ...tempState.employee })
+    //     tempState.employee = { id: '', name: '' }
+    //     this.setState(tempState)
+    // }
 
     deleteEmployee = (id) => {
         let tempState = { ...this.state }
@@ -39,13 +40,13 @@ class Employee extends Component {
 
 
     render() {
-        const { employee, employees } = this.state
+        const { employee } = this.state
 
         return (
             <div>
 
-                <AddEmployee employee={employee} handleOnChange={this.handleOnChange} addEmployee={this.addEmployee}></AddEmployee>
-                <EmployeeList employees={employees} deleteEmployee={this.deleteEmployee}></EmployeeList>
+                <AddEmployee employee={employee} handleOnChange={this.handleOnChange} addEmployee={() => this.props.addEmployee(employee)}></AddEmployee>
+                <EmployeeList employees={this.props.employees} deleteEmployee={this.deleteEmployee}></EmployeeList>
 
                 <br /><br /><br />
                 <hr />
@@ -61,8 +62,13 @@ class Employee extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('msp : ', state);
-    return { ...state }
+    console.log('mapStateToProps : ', state);
+    return { employees: state.employees }
 }
 
-export default connect(mapStateToProps)(Employee)
+const mapDispatchToProps = (dispatch) => {
+    console.log('mapDispatchToProps');
+    return { addEmployee: (payload) => dispatch(ADD_EMPLOYEE(payload)) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Employee)
