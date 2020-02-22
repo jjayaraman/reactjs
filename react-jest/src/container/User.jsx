@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { UserList } from '../component/UserList'
 
 export default class User extends Component {
 
@@ -14,7 +15,7 @@ export default class User extends Component {
     render() {
         return (
             <div>
-
+                <UserList />
             </div>
         )
     }
