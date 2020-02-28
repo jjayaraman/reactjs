@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Panel } from 'primereact/panel'
 
 import AnalyteList from './AnalyteList'
 import CreateForm from './CreateForm'
 
 const initialState = {
-    masterAnalytes: [{
+    analytes: [{
         "id": 37829,
         "code": "1",
         "desc": "acenaphthene-d10",
@@ -25,8 +25,7 @@ const initialState = {
         "desc": "1,4-dichlorobenzene-d4",
         "componentId": 241899,
         "casNumber": "3855-82-1"
-    }],
-    analytes: []
+    }]
 }
 
 
@@ -34,15 +33,29 @@ const CreateQuote = () => {
 
     const [state, setState] = useState(initialState)
 
+    useEffect(() => {
+
+
+    }, [])
+
+    const handleOnChange = (e) => {
+        const { id, value } = e.target
+        console.log('hoc:', value);
+        setState({ ...state, [id]: value })
+    }
+
+
     let analytes = state.analytes
     let header = 'Create Custom Quotation'
 
     return (
         <div>
             <Panel header={header}>
-                <CreateForm></CreateForm>
-                <AnalyteList analytes={analytes} />
+                <CreateForm analytes={analytes} handleOnChange={handleOnChange} />
+                {/*<AnalyteList analytes={analytes} handleOnChange={handleOnChange} /> */}
             </Panel>
+
+            Debugger :: <pre>{JSON.stringify(state, null, 4)}</pre>
         </div>
     )
 }

@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Employee from './container/Employee';
+import User from './container/User';
 
 function App() {
   return (
     <div>
-      <Employee></Employee>
+      <div className='header'>React Jest testing</div>
+      <User />
     </div>
   );
 }
